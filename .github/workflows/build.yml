@@ -33,6 +33,4 @@ jobs:
   zap_scan:
     needs: AnalizeImageCreateDocker
     uses: ./.github/workflows/zap_scan.yml
-    with:
-      run-name: "OWASP SAP"
     secrets: inherit

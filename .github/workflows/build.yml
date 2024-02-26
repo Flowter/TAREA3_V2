@@ -1,4 +1,5 @@
 run-name: Workflow Análisis 
+
 on:
   push:
     branches:
@@ -7,11 +8,11 @@ on:
     types: [opened, synchronize, reopened] 
 jobs:
   SAST:
-    uses: Flowter/Tarea2_V2/.github/workflows/SAST.yml@main
+    uses: ./.github/workflows/SAST.yml
     with:
       run-name: "Análisis de Código"
   SCA:
     needs: SAST
-    uses: Flowter/Tarea2_V2/.github/workflows/SCA.yml@main
+    uses: ./.github/workflows/SCA.yml
     with:
       run-name: "Análisis de Vulnerabilidades"

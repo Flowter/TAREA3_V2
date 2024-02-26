@@ -27,7 +27,7 @@ jobs:
   
         - name: Subir Imágen Docker
           run: |
-            docker push flowter/tarea3_v2
+            docker push flowter/tarea3_v2 
   Deploy:
            needs: Docker
            runs-on: self-hosted

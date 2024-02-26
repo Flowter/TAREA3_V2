@@ -3,10 +3,10 @@ on:
     inputs:
       run-name:
         required: false
-        description: 'Sube Imagen del Contenedor'
-        default: 'Push Docker Image'
+        description: 'Despliegue del Contenedor'
+        default: 'Push/Deploy Docker'
         type: string        
-name: PushDocker
+name: PushDeployDocker
 run-name: ${{inputs.run-name}}
 jobs:
   Docker:
@@ -28,3 +28,16 @@ jobs:
         - name: Subir Imágen Docker
           run: |
             docker push Flowter/Tarea3_V2 
+  Deploy:
+           needs: Docker
+           runs-on: self-hosted
+      
+           steps:
+      
+           - name: Pull Image Docker
+             run: |
+               docker pull Flowter/Tarea3_V2:latest
+         
+           - name: Liberacion
+             run: |
+               docker run -p 8085:8085 --name Flowter-deploy -d Flowter/devsecops:latest

@@ -1,4 +1,4 @@
-name: Build
+run-name: Workflow Análisis 
 on:
   push:
     branches:
@@ -6,14 +6,12 @@ on:
   pull_request:
     types: [opened, synchronize, reopened] 
 jobs:
-  AnalisisSAST:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-            fetch-depth: 0
-      - name: Análisis SAST
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-            GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  SAST:
+    uses: Flowter/Tarea2_V2/.github/workflows/SAST.yml@main
+    with:
+      run-name: "Análisis de Código"
+  SCA:
+    needs: SAST
+    uses: Flowter/Tarea2_V2/.github/workflows/SCA.yml@main
+    with:
+      run-name: "Análisis de Vulnerabilidades"

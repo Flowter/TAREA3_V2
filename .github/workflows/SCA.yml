@@ -1,0 +1,32 @@
+on:
+  workflow_call:
+    inputs:
+      run-name:
+        required: false
+        description: 'Analisis de Dependencias'
+        default: 'Running SCA'
+        type: string        
+name: SCA
+run-name: ${{inputs.run-name}}
+
+jobs:
+
+  DependencyCheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+            fetch-depth: 0
+            
+      - name: SCA
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: 'TAREA3_V2'
+          path: '.'
+          format: 'HTML'
+          
+      - name: Reporte SCA
+        uses: actions/upload-artifact@master
+        with:
+           name: Dependency report
+           path: ${{github.workspace}}/reports

@@ -23,17 +23,17 @@ jobs:
   
         - name: Construcción Docker
           run: |
-            docker build --tag flowter/tarea3_v2:latest .
+            docker build --tag flowter-netflix/tarea3_v2:latest .
   
         - name: Análisis de Seguridad de la Imágen
           uses: aquasecurity/trivy-action@master
           with:
-            image-ref: 'flowter/tarea3_v2:latest'
+            image-ref: 'flowter-netflix/tarea3_v2:latest'
             format: 'table'
         
         - name: Subir Imágen Docker
           run: |
-            docker push flowter/tarea3_v2
+            docker push flowter-netflix/tarea3_v2
   Deploy:
            needs: Docker
            runs-on: self-hosted
@@ -42,8 +42,8 @@ jobs:
       
            - name: Pull Image Docker
              run: |
-               docker pull flowter/tarea3_v2:latest
+               docker pull flowter-netflix/tarea3_v2:latest
          
            - name: Liberacion
              run: |
-               docker run -p 8081:80 --name flowter-netflix -d flowter/tarea3_v2:latest
+               docker run -p 8081:80 --name flowter-netflix -d flowter-netflix/tarea3_v2:latest

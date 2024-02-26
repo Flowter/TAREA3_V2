@@ -40,4 +40,4 @@ jobs:
          
            - name: Liberacion
              run: |
-               docker run -p 8085:8085 --name flowter-deploy -d flowter/tarea3_v2:latest
+               docker run -p 8081:80 --name flowter-deploy -d flowter/tarea3_v2:latest

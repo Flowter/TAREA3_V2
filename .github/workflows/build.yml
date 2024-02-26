@@ -24,9 +24,13 @@ jobs:
     with:
       run-name: "Análisis de Seguridad de Imágen"
     secrets: inherit
-  PushDeployDocker:
-    needs: AnalizeImage
-    uses: ./.github/workflows/SubirImagen.yml
-    with:
-      run-name: "Crea y Sube Contenedor"
+  #PushDeployDocker:
+    #needs: AnalizeImage
+    #uses: ./.github/workflows/SubirImagen.yml
+    #with:
+      #run-name: "Crea y Sube Contenedor"
+    #secrets: inherit
+  zap_scan:
+    needs: AnalizeImageCreateDocker
+    uses: ./.github/workflows/zap_scan.yml
     secrets: inherit

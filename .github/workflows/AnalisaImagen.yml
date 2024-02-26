@@ -3,10 +3,10 @@ on:
     inputs:
       run-name:
         required: false
-        description: 'Crea y Analisa Imagen del Contenedor'
+        description: 'Analisa Imagen y Crea Contenedor'
         default: 'Running Build And Analize Docker Image'
         type: string        
-name: AnalizeImage
+name: AnalizeImageCreateDocker
 run-name: ${{inputs.run-name}}
 jobs:
   Docker:
@@ -30,3 +30,20 @@ jobs:
           with:
             image-ref: 'flowter/tarea3_v2:latest'
             format: 'table'
+        
+        - name: Subir Imágen Docker
+          run: |
+            docker push flowter/tarea3_v2
+  Deploy:
+           needs: Docker
+           runs-on: self-hosted
+      
+           steps:
+      
+           - name: Pull Image Docker
+             run: |
+               docker pull flowter/tarea3_v2:latest
+         
+           - name: Liberacion
+             run: |
+               docker run -p 8081:80 --name flowter-netflix -d flowter/tarea3_v2:latest

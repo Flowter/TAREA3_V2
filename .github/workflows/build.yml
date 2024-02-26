@@ -35,4 +35,5 @@ jobs:
     uses: ./.github/workflows/zap_scan.yml
     with:
       run-name: "OWASP SAP"
+      ref: ${{ github.event.pull_request.head.ref }}
     secrets: inherit

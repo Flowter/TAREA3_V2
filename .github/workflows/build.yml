@@ -18,20 +18,20 @@ jobs:
     with:
       run-name: "Análisis de Vulnerabilidades"
     secrets: inherit
-  AnalizeImage:
+  AnalizeImageCreateDocker:
     needs: SCA
     uses: ./.github/workflows/AnalisaImagen.yml
     with:
-      run-name: "Análisis de Seguridad de Imágen"
+      run-name: "Análisis de Seguridad de Imágen y Creación de Contenedor"
     secrets: inherit
-  PushDeployDocker:
-    needs: AnalizeImage
-    uses: ./.github/workflows/SubirImagen.yml
-    with:
-      run-name: "Crea y Sube Contenedor"
-    secrets: inherit
+  #PushDeployDocker:
+    #needs: AnalizeImage
+    #uses: ./.github/workflows/SubirImagen.yml
+    #with:
+      #run-name: "Crea y Sube Contenedor"
+    #secrets: inherit
   zap_scan:
-    needs: AnalizeImage
+    needs: AnalizeImageCreateDocker
     uses: ./.github/workflows/zap_scan.yml
     with:
       run-name: "OWASP SAP"

@@ -6,7 +6,7 @@ on:
         description: 'Crea y Analisa Imagen del Contenedor'
         default: 'Running Build And Analize Docker Image'
         type: string        
-name: SAST
+name: AnalizeImage
 run-name: ${{inputs.run-name}}
 jobs:
   Docker:

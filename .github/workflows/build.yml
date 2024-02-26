@@ -18,3 +18,15 @@ jobs:
     with:
       run-name: "Análisis de Vulnerabilidades"
     secrets: inherit
+  AnalizeImage:
+    needs: SCA
+    uses: ./.github/workflows/AnalisaImagen.yml
+    with:
+      run-name: "Análisis de Seguridad de Imágen"
+    secrets: inherit
+  PushDeployDocker:
+    needs: AnalizeImage
+    uses: ./.github/workflows/SubirImagen.yml
+    with:
+      run-name: "Crea y Sube Contenedor"
+    secrets: inherit

@@ -1,10 +1,6 @@
-name: SCA
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    types: [opened, synchronize, reopened] 
+  workflow_call:
+name: SCA  
 jobs:
 
   DependencyCheck:

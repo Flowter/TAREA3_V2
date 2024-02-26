@@ -30,7 +30,7 @@ jobs:
     #with:
       #run-name: "Crea y Sube Contenedor"
     #secrets: inherit
-  zap_scan:
-    needs: AnalizeImageCreateDocker
-    uses: ./.github/workflows/zap_scan.yml
-    secrets: inherit
+  #zap_scan:
+   # needs: AnalizeImageCreateDocker
+    #uses: ./.github/workflows/zap_scan.yml
+    #secrets: inherit

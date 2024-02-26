@@ -23,11 +23,11 @@ jobs:
   
         - name: Construcción Docker
           run: |
-            docker build --tag Flowter/Tarea3_V2:latest .
+            docker build --tag flowter/tarea3_v2:latest .
   
         - name: Subir Imágen Docker
           run: |
-            docker push Flowter/Tarea3_V2 
+            docker push flowter/tarea3_v2 
   Deploy:
            needs: Docker
            runs-on: self-hosted
@@ -36,8 +36,8 @@ jobs:
       
            - name: Pull Image Docker
              run: |
-               docker pull Flowter/Tarea3_V2:latest
+               docker pull flowter/tarea3_v2:latest
          
            - name: Liberacion
              run: |
-               docker run -p 8085:8085 --name Flowter-deploy -d Flowter/devsecops:latest
+               docker run -p 8081:80 --name flowter-deploy -d flowter/tarea3_v2:latest

@@ -7,7 +7,7 @@ on:
         default: 'zap_scan'
         type: string        
 name: zap_scan
-run-name: ${{inputs.run-name}}
+run-name: zap_scan
 
 jobs:
   zap_scan:

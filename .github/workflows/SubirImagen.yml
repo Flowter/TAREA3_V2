@@ -1,0 +1,30 @@
+on:
+  workflow_call:
+    inputs:
+      run-name:
+        required: false
+        description: 'Sube Imagen del Contenedor'
+        default: 'Push Docker Image'
+        type: string        
+name: PushDocker
+run-name: ${{inputs.run-name}}
+jobs:
+  Docker:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+          with:
+              fetch-depth: 0
+        - name: Docker
+          uses: docker/login-action@v3.0.0
+          with:
+            username: ${{ secrets.DOCKER_SECRETS_USER }}
+            password: ${{ secrets.DOCKER_SECRETS_PASS }}
+  
+        - name: Construcción Docker
+          run: |
+            docker build --tag Flowter/Tarea3_V2:latest .
+  
+        - name: Subir Imágen Docker
+          run: |
+            docker push Flowter/Tarea3_V2 

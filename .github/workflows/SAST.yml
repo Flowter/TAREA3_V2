@@ -1,10 +1,13 @@
-name: SAST
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    types: [opened, synchronize, reopened] 
+  workflow_call:
+    inputs:
+      run-name:
+        required: false
+        description: 'Analisis de código'
+        default: 'Running SAST'
+        type: string        
+name: SAST
+run-name: ${{inputs.run-name}}
 jobs:
   A_SAST:
     runs-on: ubuntu-latest

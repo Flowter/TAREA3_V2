@@ -23,6 +23,6 @@ jobs:
         with:
           token: ${{ secrets.ACCToken }}
           docker_name: 'flowter/tarea3_v2:latest'
-          target: 'https://www.zaproxy.org/'
+          target: 'https://localhost:8085/'
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a'

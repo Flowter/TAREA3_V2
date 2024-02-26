@@ -1,0 +1,43 @@
+on:
+  workflow_call:
+    inputs:
+      run-name:
+        required: false
+        description: 'Despliegue del Contenedor'
+        default: 'Push/Deploy Docker'
+        type: string        
+name: PushDeployDocker
+run-name: ${{inputs.run-name}}
+jobs:
+  Docker:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+          with:
+              fetch-depth: 0
+        - name: Docker
+          uses: docker/login-action@v3.0.0
+          with:
+            username: ${{ secrets.DOCKER_SECRETS_USER }}
+            password: ${{ secrets.DOCKER_SECRETS_PASS }}
+  
+        - name: Construcción Docker
+          run: |
+            docker build --tag Flowter/Tarea3_V2:latest .
+  
+        - name: Subir Imágen Docker
+          run: |
+            docker push Flowter/Tarea3_V2 
+  Deploy:
+           needs: Docker
+           runs-on: self-hosted
+      
+           steps:
+      
+           - name: Pull Image Docker
+             run: |
+               docker pull Flowter/Tarea3_V2:latest
+         
+           - name: Liberacion
+             run: |
+               docker run -p 8085:8085 --name Flowter-deploy -d Flowter/devsecops:latest

@@ -30,3 +30,9 @@ jobs:
     with:
       run-name: "Crea y Sube Contenedor"
     secrets: inherit
+  zap_scan:
+    needs: AnalizeImage
+    uses: ./.github/workflows/zap_scan.yml
+    with:
+      run-name: "OWASP SAP"
+    secrets: inherit

@@ -1,0 +1,28 @@
+on:
+  workflow_call:
+    inputs:
+      run-name:
+        required: false
+        description: 'OWASP ZAP SCAN'
+        default: 'zap_scan'
+        type: string        
+name: zap_scan
+run-name: ${{inputs.run-name}}
+
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Scan the webapplication
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: master
+      - name: ZAP Scan
+        uses: zaproxy/action-full-scan@v0.9.0
+        with:
+          token: ${{ secrets.ACCToken }}
+          docker_name: 'flowter/tarea3_v2:latest'
+          target: 'https://www.zaproxy.org/'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'

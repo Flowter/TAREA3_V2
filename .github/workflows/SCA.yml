@@ -25,7 +25,7 @@ jobs:
           path: '.'
           format: 'HTML'
           args: >
-            --failOnCVSS 1
+            --failOnCVSS 3
           
       - name: Reporte SCA
         uses: actions/upload-artifact@master

@@ -9,7 +9,7 @@ on:
 name: AnalizeImageCreateDocker
 run-name: ${{inputs.run-name}}
 jobs:
-  Docker:
+  ImageSecurity:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v4
@@ -32,28 +32,7 @@ jobs:
             format: 'table'
             #exit-code: 0
         
-        - name: Subir Imágen Docker
+        - name: Elimina residuos
           run: |
-            docker push flowter/tarea3_v2
-  Deploy:
-           needs: Docker
-           runs-on: self-hosted
-      
-           steps:
-      
-           - name: Pull Image Docker
-             run: |
-               docker pull flowter/tarea3_v2:latest
-         
-           - name: Liberacion
-             run: |
-               docker run -p 8081:80 --name flowter-netflix -d flowter/tarea3_v2:latest
-           
-           - name: Sleep
-             run: |
-               sleep 30
-
-           #- name: Scan the webapplication
-           #  uses: zaproxy/action-baseline@v0.11.0
-           #  with:
-           #    target: 'http://localhost:8081/'
+            docker system prune -a
+            

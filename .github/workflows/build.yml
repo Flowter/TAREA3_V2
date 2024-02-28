@@ -1,5 +1,9 @@
-#run-name: Workflow Análisis 
+run-name: Flujo Análisis 
 
+
+on:
+  push:
+  workflow_dispatch:
 
 #on:
 #  push:
@@ -7,30 +11,38 @@
 #      - main
 #  pull_request:
 #    types: [opened, synchronize, reopened] 
-#jobs:
+
+jobs:
+
+#Clonar Repo Profe
+  
 #  SAST:
 #    uses: ./.github/workflows/SAST.yml
 #    with:
 #      run-name: "Análisis de Código"
 #    secrets: inherit  
+
 #  SCA:
 #    needs: SAST
 #    uses: ./.github/workflows/SCA.yml
 #    with:
 #      run-name: "Análisis de Vulnerabilidades"
 #    secrets: inherit
-#  AnalizeImageCreateDocker:
-#    needs: SCA
-#    uses: ./.github/workflows/AnalisaImagen.yml
-#    with:
-#      run-name: "Análisis de Seguridad de Imágen y Creación de Contenedor"
-#    secrets: inherit
+
+  AnalizeImageCreateDocker:
+    needs: SCA
+    uses: ./.github/workflows/AnalisaImagen.yml
+    with:
+      run-name: "Análisis de Seguridad de Imágen y Creación de Contenedor"
+    secrets: inherit
+
   #PushDeployDocker:
     #needs: AnalizeImage
     #uses: ./.github/workflows/SubirImagen.yml
     #with:
       #run-name: "Crea y Sube Contenedor"
     #secrets: inherit
+
   #zap_scan:
    # needs: AnalizeImageCreateDocker
     #uses: ./.github/workflows/zap_scan.yml

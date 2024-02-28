@@ -30,6 +30,7 @@ jobs:
           with:
             image-ref: 'flowter/tarea3_v2:latest'
             format: 'table'
+            #exit-code: 0
         
         - name: Subir Imágen Docker
           run: |

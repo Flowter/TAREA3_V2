@@ -24,6 +24,8 @@ jobs:
           project: 'TAREA3_V2'
           path: '.'
           format: 'HTML'
+          args: >
+            --failOnCVSS 1
           
       - name: Reporte SCA
         uses: actions/upload-artifact@master

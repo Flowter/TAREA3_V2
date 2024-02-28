@@ -10,7 +10,7 @@ jobs:
       steps:
         
         - name: Clonación Repositorio
-          uses: actions/checkout@3
+          uses: actions/checkout@v4
         
         - name: SAST
           uses: ./.github/workflows/SAST.yml

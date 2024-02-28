@@ -56,4 +56,4 @@ jobs:
            - name: Scan the webapplication
              uses: zaproxy/action-baseline@v0.11.0
              with:
-               target: 'http://localhost:8081/'
+               target: 'https://localhost:8081/'

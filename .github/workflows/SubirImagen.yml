@@ -1,20 +1,25 @@
 on:
   workflow_call:
+
     inputs:
       run-name:
         required: false
         description: 'Despliegue del Contenedor'
         default: 'Push/Deploy Docker'
         type: string        
-name: PushDeployDocker
+name: DeployDocker
 run-name: ${{inputs.run-name}}
+
 jobs:
+  
   ConstruirDocker:
       runs-on: ubuntu-latest
+      
       steps:
         - uses: actions/checkout@v4
           with:
               fetch-depth: 0
+        
         - name: Docker
           uses: docker/login-action@v3.0.0
           with:
@@ -28,8 +33,9 @@ jobs:
         - name: Subir Imágen Docker
           run: |
             docker push flowter/tarea3_v2 
+  
   DesplegarDocker:
-           needs: Docker
+           needs: ConstruirDocker
            runs-on: self-hosted
       
            steps:
@@ -40,4 +46,8 @@ jobs:
          
            - name: Liberacion
              run: |
-               docker run -p 8081:80 --name flowter-deploy -d flowter/tarea3_v2:latest
+               docker run -p 8081:80 --name flowter-netflix -d flowter/tarea3_v2:latest
+           
+           - name: Sleep
+             run: |
+               sleep 30

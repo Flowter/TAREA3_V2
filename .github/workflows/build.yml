@@ -27,7 +27,7 @@ jobs:
           repository: 'final-lab'
       - name: Access cloned repository content
         run: |
-          cd final-lab
+          cp -r final-lab /home/ubuntu/
           ls -la
       
   

@@ -13,56 +13,39 @@ on:
 #    types: [opened, synchronize, reopened] 
 
 jobs:
-
-#Clonar Repo Profe
-  Clon:
-    runs-on: self-hosted
-    steps:
-      - name: Clonar Repositorio
-        uses: GuillaumeFalourd/clone-github-repo-action@v2.1
-        with:
-          depth: 1
-          branch: 'feature'
-          owner: 'DevSecOps-Ciclo-7'
-          repository: 'final-lab'
-      - name: Access cloned repository content
-        run: |
-          cd final-lab
-          git init
-          git add .
-          git commit -m "Add existing project files to Git"
-          git remote add origin
-          git push -u -f origin main
-          cd ..
-          rm -rf final-lab
-      
   
-#  SAST:
-#    uses: ./.github/workflows/SAST.yml
-#    with:
-#      run-name: "Análisis de Código"
-#    secrets: inherit  
+  Clone:
+    uses: ./.github/workflows/clonaRepo.yml
+    with:
+      run-name: "Clonar Repo"
+    secrets: inherit  
+  
+  SAST:
+    uses: ./.github/workflows/SAST.yml
+    with:
+      run-name: "Análisis de Código"
+    secrets: inherit  
 
-#  SCA:
-#    needs: SAST
-#    uses: ./.github/workflows/SCA.yml
-#    with:
-#      run-name: "Análisis de Vulnerabilidades"
-#    secrets: inherit
+  SCA:
+    needs: SAST
+    uses: ./.github/workflows/SCA.yml
+    with:
+      run-name: "Análisis de Vulnerabilidades"
+    secrets: inherit
 
-#  AnalizeImageDocker:
-#    #needs: SCA
-#    uses: ./.github/workflows/AnalisaImagen.yml
-#    with:
-#      run-name: "Análisis de Seguridad de Imágen y Creación de Contenedor"
-#    secrets: inherit
+  AnalizeImageDocker:
+    #needs: SCA
+    uses: ./.github/workflows/AnalisaImagen.yml
+    with:
+      run-name: "Análisis de Seguridad de Imágen y Creación de Contenedor"
+    secrets: inherit
 
-#  DeployDocker:
-#    needs: AnalizeImageDocker
-#    uses: ./.github/workflows/SubirImagen.yml
-#    with:
-#      run-name: "Crea y Sube Contenedor"
-#    secrets: inherit
+  DeployDocker:
+    needs: AnalizeImageDocker
+    uses: ./.github/workflows/SubirImagen.yml
+    with:
+      run-name: "Crea y Sube Contenedor"
+    secrets: inherit
 
 #  zap_scan:
 #    needs: DeployDocker

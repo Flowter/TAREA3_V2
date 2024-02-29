@@ -1,37 +1,49 @@
-run-name: Workflow Análisis 
-
+run-name: CICD
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    types: [opened, synchronize, reopened] 
+  workflow_dispatch:
+  
 jobs:
+  
+  Clone:
+    uses: ./.github/workflows/clonaRepo.yml
+    with:
+      run-name: "Clonación del Repositorio"
+    secrets: inherit  
+  
   SAST:
     uses: ./.github/workflows/SAST.yml
     with:
       run-name: "Análisis de Código"
     secrets: inherit  
+
   SCA:
     needs: SAST
     uses: ./.github/workflows/SCA.yml
     with:
       run-name: "Análisis de Vulnerabilidades"
     secrets: inherit
-  AnalizeImageCreateDocker:
+
+  AnalizeImageDocker:
     needs: SCA
     uses: ./.github/workflows/AnalisaImagen.yml
     with:
       run-name: "Análisis de Seguridad de Imágen y Creación de Contenedor"
     secrets: inherit
-  #PushDeployDocker:
-    #needs: AnalizeImage
-    #uses: ./.github/workflows/SubirImagen.yml
-    #with:
-      #run-name: "Crea y Sube Contenedor"
-    #secrets: inherit
-  #zap_scan:
-   # needs: AnalizeImageCreateDocker
-    #uses: ./.github/workflows/zap_scan.yml
-    #secrets: inherit
+
+  DeployDocker:
+    needs: AnalizeImageDocker
+    uses: ./.github/workflows/SubirImagen.yml
+    with:
+      run-name: "Crea y Sube Contenedor"
+    secrets: inherit
+
+  zap_scan:
+    needs: DeployDocker
+    uses: ./.github/workflows/zap_scan.yml
+    with:
+      run-name: "DAST - OWASP ZAP"
+    secrets: inherit

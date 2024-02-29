@@ -11,7 +11,7 @@ on:
 name: SAST
 run-name: ${{inputs.run-name}}
 jobs:
-  A_SAST:
+  Analisis_SAST:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

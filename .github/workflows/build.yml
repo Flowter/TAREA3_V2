@@ -2,7 +2,7 @@ run-name: Flujo Análisis
 
 
 on:
-  push:
+  #push:
   workflow_dispatch:
 
 #on:
@@ -15,6 +15,21 @@ on:
 jobs:
 
 #Clonar Repo Profe
+  Clon:
+    runs-on: self-hosted
+    steps:
+      - name: Clonar Repositorio
+        uses: GuillaumeFalourd/clone-github-repo-action@v2.1
+        with:
+          depth: 1
+          branch: 'feature'
+          owner: 'DevSecOps-Ciclo-7'
+          repository: 'final-lab'
+      - name: Access cloned repository content
+        run: |
+          cd src
+          ls -la
+      
   
 #  SAST:
 #    uses: ./.github/workflows/SAST.yml
@@ -29,23 +44,23 @@ jobs:
 #      run-name: "Análisis de Vulnerabilidades"
 #    secrets: inherit
 
-  AnalizeImageDocker:
-    #needs: SCA
-    uses: ./.github/workflows/AnalisaImagen.yml
-    with:
-      run-name: "Análisis de Seguridad de Imágen y Creación de Contenedor"
-    secrets: inherit
+#  AnalizeImageDocker:
+#    #needs: SCA
+#    uses: ./.github/workflows/AnalisaImagen.yml
+#    with:
+#      run-name: "Análisis de Seguridad de Imágen y Creación de Contenedor"
+#    secrets: inherit
 
-  DeployDocker:
-    needs: AnalizeImageDocker
-    uses: ./.github/workflows/SubirImagen.yml
-    with:
-      run-name: "Crea y Sube Contenedor"
-    secrets: inherit
+#  DeployDocker:
+#    needs: AnalizeImageDocker
+#    uses: ./.github/workflows/SubirImagen.yml
+#    with:
+#      run-name: "Crea y Sube Contenedor"
+#    secrets: inherit
 
-  zap_scan:
-    needs: DeployDocker
-    uses: ./.github/workflows/zap_scan.yml
-    with:
-      run-name: "DAST - OWASP ZAP"
-    secrets: inherit
+#  zap_scan:
+#    needs: DeployDocker
+#    uses: ./.github/workflows/zap_scan.yml
+#    with:
+#      run-name: "DAST - OWASP ZAP"
+#    secrets: inherit

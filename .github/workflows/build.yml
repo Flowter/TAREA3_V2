@@ -37,7 +37,7 @@ jobs:
     secrets: inherit
 
   #PushDeployDocker:
-    #needs: AnalizeImage
+    #needs: AnalizeImageDocker
     #uses: ./.github/workflows/SubirImagen.yml
     #with:
       #run-name: "Crea y Sube Contenedor"

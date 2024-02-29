@@ -6,7 +6,7 @@ on:
         description: 'Analisa Imagen y Crea Contenedor'
         default: 'Running Build And Analize Docker Image'
         type: string        
-name: AnalizeImageCreateDocker
+name: AnalizeImageDocker
 run-name: ${{inputs.run-name}}
 jobs:
   ImageSecurity:

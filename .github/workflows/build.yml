@@ -2,7 +2,7 @@ run-name: Flujo Análisis
 
 
 on:
-  #push:
+  push:
   workflow_dispatch:
 
 #on:
@@ -27,7 +27,7 @@ jobs:
           repository: 'final-lab'
       - name: Access cloned repository content
         run: |
-          cd src
+          cd final-lab
           ls -la
       
   

@@ -30,9 +30,4 @@ jobs:
           with:
             image-ref: 'flowter/tarea3_v2:latest'
             format: 'table'
-            #exit-code: 0
-        
-        - name: Elimina residuos
-          run: |
-            docker system prune -a
-            
+            #exit-code: 0       

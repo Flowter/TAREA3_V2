@@ -2,7 +2,7 @@ run-name: Flujo Análisis
 
 
 on:
-  push:
+  #push:
   workflow_dispatch:
 
 #on:
@@ -18,17 +18,18 @@ jobs:
   Clon:
     runs-on: self-hosted
     steps:
-      - name: Clonar Repositorio
-        uses: GuillaumeFalourd/clone-github-repo-action@v2.1
-        with:
-          depth: 1
-          branch: 'feature'
-          owner: 'DevSecOps-Ciclo-7'
-          repository: 'final-lab'
-      - name: Access cloned repository content
-        run: |
-          cp -r final-lab /home/ubuntu/
-          ls -la
+      
+     # - name: Clonar Repositorio
+     #   uses: GuillaumeFalourd/clone-github-repo-action@v2.1
+     #   with:
+     #     depth: 1
+     #     branch: 'feature'
+     #     owner: 'DevSecOps-Ciclo-7'
+     #     repository: 'final-lab'
+     # - name: Access cloned repository content
+     #   run: |
+     #     cp -r final-lab /home/ubuntu/
+     #     ls -la
       
   
 #  SAST:

@@ -1,17 +1,11 @@
-run-name: Flujo Análisis 
-
+run-name: CICD
 
 on:
   push:
+    branches:
+      - main
   workflow_dispatch:
-
-#on:
-#  push:
-#    branches:
-#      - main
-#  pull_request:
-#    types: [opened, synchronize, reopened] 
-
+  
 jobs:
   
   Clone:
@@ -20,36 +14,36 @@ jobs:
       run-name: "Clonación del Repositorio"
     secrets: inherit  
   
-#  SAST:
-#    uses: ./.github/workflows/SAST.yml
-#    with:
-#      run-name: "Análisis de Código"
-#    secrets: inherit  
+  SAST:
+    uses: ./.github/workflows/SAST.yml
+    with:
+      run-name: "Análisis de Código"
+    secrets: inherit  
 
-#  SCA:
-#    needs: SAST
-#    uses: ./.github/workflows/SCA.yml
-#    with:
-#      run-name: "Análisis de Vulnerabilidades"
-#    secrets: inherit
+  SCA:
+    needs: SAST
+    uses: ./.github/workflows/SCA.yml
+    with:
+      run-name: "Análisis de Vulnerabilidades"
+    secrets: inherit
 
-#  AnalizeImageDocker:
-    #needs: SCA
-#    uses: ./.github/workflows/AnalisaImagen.yml
-#    with:
-#      run-name: "Análisis de Seguridad de Imágen y Creación de Contenedor"
-#    secrets: inherit
+  AnalizeImageDocker:
+    needs: SCA
+    uses: ./.github/workflows/AnalisaImagen.yml
+    with:
+      run-name: "Análisis de Seguridad de Imágen y Creación de Contenedor"
+    secrets: inherit
 
-#  DeployDocker:
-#    needs: AnalizeImageDocker
-#    uses: ./.github/workflows/SubirImagen.yml
-#    with:
-#      run-name: "Crea y Sube Contenedor"
-#    secrets: inherit
+  DeployDocker:
+    needs: AnalizeImageDocker
+    uses: ./.github/workflows/SubirImagen.yml
+    with:
+      run-name: "Crea y Sube Contenedor"
+    secrets: inherit
 
-#  zap_scan:
-#    needs: DeployDocker
-#    uses: ./.github/workflows/zap_scan.yml
-#    with:
-#      run-name: "DAST - OWASP ZAP"
-#    secrets: inherit
+  zap_scan:
+    needs: DeployDocker
+    uses: ./.github/workflows/zap_scan.yml
+    with:
+      run-name: "DAST - OWASP ZAP"
+    secrets: inherit

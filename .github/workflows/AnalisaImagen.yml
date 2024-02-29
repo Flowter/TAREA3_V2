@@ -30,4 +30,4 @@ jobs:
           with:
             image-ref: 'flowter/tarea3_v2:latest'
             format: 'table'
-            #exit-code: 0       
+            exit-code: 0       

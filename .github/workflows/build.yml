@@ -2,7 +2,7 @@ run-name: Flujo Análisis
 
 
 on:
-  push:
+  #push:
   workflow_dispatch:
 
 #on:

@@ -9,7 +9,7 @@ on:
 name: PushDeployDocker
 run-name: ${{inputs.run-name}}
 jobs:
-  Docker:
+  ConstruirDocker:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v4
@@ -28,7 +28,7 @@ jobs:
         - name: Subir Imágen Docker
           run: |
             docker push flowter/tarea3_v2 
-  Deploy:
+  DesplegarDocker:
            needs: Docker
            runs-on: self-hosted
       

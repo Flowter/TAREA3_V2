@@ -2,7 +2,7 @@ run-name: Flujo Análisis
 
 
 on:
-  #push:
+  push:
   workflow_dispatch:
 
 #on:
@@ -18,7 +18,9 @@ jobs:
   Clon:
     runs-on: self-hosted
     steps:
-      
+      - name: Clonar Repositorio
+        run: |
+            pwd
      # - name: Clonar Repositorio
      #   uses: GuillaumeFalourd/clone-github-repo-action@v2.1
      #   with:

@@ -29,23 +29,23 @@ jobs:
 #      run-name: "Análisis de Vulnerabilidades"
 #    secrets: inherit
 
-#  AnalizeImageDocker:
+  AnalizeImageDocker:
     #needs: SCA
-    #uses: ./.github/workflows/AnalisaImagen.yml
-    #with:
-     # run-name: "Análisis de Seguridad de Imágen y Creación de Contenedor"
-    #secrets: inherit
+    uses: ./.github/workflows/AnalisaImagen.yml
+    with:
+      run-name: "Análisis de Seguridad de Imágen y Creación de Contenedor"
+    secrets: inherit
 
   DeployDocker:
-    #needs: AnalizeImageDocker
+    needs: AnalizeImageDocker
     uses: ./.github/workflows/SubirImagen.yml
     with:
       run-name: "Crea y Sube Contenedor"
     secrets: inherit
 
-  #zap_scan:
-    #needs: DeployDocker
-    #uses: ./.github/workflows/zap_scan.yml
-    #with:
-      #run-name: "DAST - OWASP ZAP"
-    #secrets: inherit
+  zap_scan:
+    needs: DeployDocker
+    uses: ./.github/workflows/zap_scan.yml
+    with:
+      run-name: "DAST - OWASP ZAP"
+    secrets: inherit

@@ -2,7 +2,7 @@ run-name: Flujo Análisis
 
 
 on:
-  #push:
+  push:
   workflow_dispatch:
 
 #on:
@@ -17,35 +17,35 @@ jobs:
   Clone:
     uses: ./.github/workflows/clonaRepo.yml
     with:
-      run-name: "Clonar Repo"
+      run-name: "Clonación del Repositorio"
     secrets: inherit  
   
-  SAST:
-    uses: ./.github/workflows/SAST.yml
-    with:
-      run-name: "Análisis de Código"
-    secrets: inherit  
+#  SAST:
+#    uses: ./.github/workflows/SAST.yml
+#    with:
+#      run-name: "Análisis de Código"
+#    secrets: inherit  
 
-  SCA:
-    needs: SAST
-    uses: ./.github/workflows/SCA.yml
-    with:
-      run-name: "Análisis de Vulnerabilidades"
-    secrets: inherit
+#  SCA:
+#    needs: SAST
+#    uses: ./.github/workflows/SCA.yml
+#    with:
+#      run-name: "Análisis de Vulnerabilidades"
+#    secrets: inherit
 
-  AnalizeImageDocker:
+#  AnalizeImageDocker:
     #needs: SCA
-    uses: ./.github/workflows/AnalisaImagen.yml
-    with:
-      run-name: "Análisis de Seguridad de Imágen y Creación de Contenedor"
-    secrets: inherit
+#    uses: ./.github/workflows/AnalisaImagen.yml
+#    with:
+#      run-name: "Análisis de Seguridad de Imágen y Creación de Contenedor"
+#    secrets: inherit
 
-  DeployDocker:
-    needs: AnalizeImageDocker
-    uses: ./.github/workflows/SubirImagen.yml
-    with:
-      run-name: "Crea y Sube Contenedor"
-    secrets: inherit
+#  DeployDocker:
+#    needs: AnalizeImageDocker
+#    uses: ./.github/workflows/SubirImagen.yml
+#    with:
+#      run-name: "Crea y Sube Contenedor"
+#    secrets: inherit
 
 #  zap_scan:
 #    needs: DeployDocker

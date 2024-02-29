@@ -29,7 +29,7 @@ jobs:
 
   AnalizeImageDocker:
     needs: SCA
-    uses: ./.github/workflows/AnalisaImagen.yml
+    uses: ./.github/workflows/AnalizaImagen.yml
     with:
       run-name: "Análisis de Seguridad de Imágen y Creación de Contenedor"
     secrets: inherit
